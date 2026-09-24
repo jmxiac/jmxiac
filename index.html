@@ -1,205 +1,714 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Caleb Archive</title>
+<title>Caleb Archive</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+<style>
 
-        body {
-            font-family: Georgia, serif;
-            background: #0b0d14;
-            color: white;
-            min-height: 100vh;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-        .hero {
-            min-height: 55vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 40px 25px;
-            background:
-                linear-gradient(to top, #0b0d14 0%, transparent 70%),
-                linear-gradient(135deg, #172235, #0b0d14);
-        }
+html, body {
+    width: 100%;
+    min-height: 100%;
+    background: #08090c;
+}
 
-        .small-title {
-            letter-spacing: 5px;
-            font-size: 13px;
-            opacity: 0.7;
-            margin-bottom: 10px;
-        }
+body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
 
-        h1 {
-            font-size: 55px;
-            font-weight: normal;
-            letter-spacing: 8px;
-        }
 
-        .subtitle {
-            margin-top: 10px;
-            font-size: 15px;
-            letter-spacing: 3px;
-            opacity: 0.7;
-        }
+/* =========================
+   PHONE / GAME SCREEN
+========================= */
 
-        .content {
-            padding: 30px 25px;
-        }
+.phone {
+    position: relative;
 
-        .section-title {
-            font-size: 22px;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-        }
+    width: 100%;
+    max-width: 430px;
+    height: 100vh;
 
-        .stats {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 35px;
-        }
+    overflow: hidden;
 
-        .stat {
-            background: #151925;
-            border: 1px solid #282d3d;
-            padding: 18px;
-            flex: 1;
-            text-align: center;
-        }
+    background-image:
+        linear-gradient(
+            to bottom,
+            rgba(10,15,20,0.18),
+            rgba(10,15,20,0.03) 45%,
+            rgba(5,7,10,0.52) 100%
+        ),
+        url("a7drzoajc1ae1.jpg");
 
-        .stat-number {
-            font-size: 25px;
-            display: block;
-            margin-bottom: 6px;
-        }
+    background-size: cover;
 
-        .stat-label {
-            font-size: 11px;
-            letter-spacing: 2px;
-            opacity: 0.6;
-        }
+    /* Keeps the square café image centered */
+    background-position: center center;
 
-        .categories {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+    background-repeat: no-repeat;
+}
 
-        .category {
-            padding: 25px 15px;
-            background: #151925;
-            border: 1px solid #282d3d;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.25s;
-        }
 
-        .category:hover {
-            background: #202638;
-            transform: translateY(-3px);
-        }
+/* =========================
+   TOP LEFT PROFILE
+========================= */
 
-        .category-icon {
-            font-size: 25px;
-            margin-bottom: 10px;
-        }
+.profile {
+    position: absolute;
 
-        .category-name {
-            letter-spacing: 2px;
-            font-size: 13px;
-        }
+    top: 20px;
+    left: 18px;
 
-        footer {
-            text-align: center;
-            padding: 50px 20px 30px;
-            font-size: 11px;
-            letter-spacing: 2px;
-            opacity: 0.4;
-        }
+    display: flex;
+    align-items: center;
 
-        @media (min-width: 700px) {
-            .hero {
-                min-height: 65vh;
-                padding: 60px 10%;
-            }
+    gap: 9px;
 
-            .content {
-                max-width: 900px;
-                margin: auto;
-            }
+    z-index: 5;
+}
 
-            h1 {
-                font-size: 80px;
-            }
+.profile-icon {
+    width: 39px;
+    height: 39px;
 
-            .categories {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-    </style>
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.65);
+
+    background: rgba(30,35,38,0.28);
+
+    backdrop-filter: blur(8px);
+
+    font-size: 17px;
+
+    box-shadow:
+        0 0 15px rgba(255,255,255,0.08);
+}
+
+.profile-info {
+    text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+}
+
+.profile-name {
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.profile-sub {
+    margin-top: 3px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 1.5px;
+
+    opacity: 0.72;
+}
+
+
+/* =========================
+   TOP RIGHT MINI ICONS
+========================= */
+
+.top-icons {
+    position: absolute;
+
+    top: 25px;
+    right: 18px;
+
+    display: flex;
+    gap: 9px;
+
+    z-index: 5;
+}
+
+.top-icon {
+    width: 31px;
+    height: 31px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(20,25,28,0.28);
+
+    border: 1px solid rgba(255,255,255,0.38);
+
+    backdrop-filter: blur(7px);
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.top-icon:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   RIGHT SIDE MENU
+========================= */
+
+.side-menu {
+    position: absolute;
+
+    top: 105px;
+    right: 13px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 15px;
+
+    z-index: 5;
+}
+
+.side-button {
+    width: 65px;
+
+    text-align: center;
+
+    color: white;
+
+    cursor: pointer;
+
+    opacity: 0.9;
+
+    transition: 0.25s;
+
+    text-shadow:
+        0 1px 6px rgba(0,0,0,0.9);
+}
+
+.side-button:hover {
+    opacity: 1;
+    transform: translateX(-4px);
+}
+
+.side-circle {
+    width: 43px;
+    height: 43px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.62);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.14),
+            rgba(20,25,28,0.18)
+        );
+
+    backdrop-filter: blur(7px);
+
+    font-size: 17px;
+
+    box-shadow:
+        inset 0 0 10px rgba(255,255,255,0.05),
+        0 2px 12px rgba(0,0,0,0.2);
+}
+
+.side-label {
+    margin-top: 5px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================
+   DIALOGUE BOX
+========================= */
+
+.dialogue {
+    position: absolute;
+
+    left: 18px;
+    right: 85px;
+
+    bottom: 125px;
+
+    padding: 12px 15px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12,15,18,0.67),
+            rgba(12,15,18,0.35)
+        );
+
+    border-left: 2px solid rgba(255,255,255,0.62);
+
+    backdrop-filter: blur(5px);
+
+    text-shadow:
+        0 1px 5px rgba(0,0,0,0.8);
+
+    z-index: 4;
+}
+
+.dialogue-name {
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    opacity: 0.65;
+
+    margin-bottom: 5px;
+}
+
+.dialogue-text {
+    font-size: 14px;
+
+    line-height: 1.45;
+}
+
+
+/* =========================
+   BOTTOM NAVIGATION
+========================= */
+
+.bottom-nav {
+    position: absolute;
+
+    left: 13px;
+    right: 13px;
+    bottom: 17px;
+
+    height: 67px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    z-index: 10;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(15,19,22,0.55),
+            rgba(8,11,14,0.72)
+        );
+
+    border-top: 1px solid rgba(255,255,255,0.22);
+
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 -5px 25px rgba(0,0,0,0.18);
+}
+
+.nav-item {
+    position: relative;
+
+    width: 25%;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 5px;
+
+    color: rgba(255,255,255,0.78);
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+}
+
+.nav-item:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+.nav-icon {
+    font-size: 21px;
+
+    line-height: 1;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,0.18);
+}
+
+.nav-label {
+    font-family: Arial, sans-serif;
+
+    font-size: 8px;
+
+    letter-spacing: 1.4px;
+}
+
+
+/* =========================
+   LITTLE DECORATIVE LINES
+========================= */
+
+.decor-left {
+    position: absolute;
+
+    left: 18px;
+    top: 92px;
+
+    width: 32px;
+    height: 1px;
+
+    background: rgba(255,255,255,0.35);
+}
+
+.decor-right {
+    position: absolute;
+
+    right: 15px;
+    bottom: 95px;
+
+    width: 35px;
+    height: 1px;
+
+    background: rgba(255,255,255,0.25);
+}
+
+
+/* =========================
+   MESSAGE POPUP
+========================= */
+
+.message {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 75%;
+
+    padding: 22px;
+
+    text-align: center;
+
+    background: rgba(15,18,21,0.85);
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    backdrop-filter: blur(12px);
+
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.45);
+
+    z-index: 50;
+
+    display: none;
+}
+
+.message p {
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    opacity: 0.9;
+}
+
+.message button {
+    margin-top: 15px;
+
+    padding: 7px 20px;
+
+    background: transparent;
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,0.4);
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   DESKTOP
+========================= */
+
+@media (min-width: 600px) {
+
+    body {
+        padding: 20px 0;
+    }
+
+    .phone {
+        height: calc(100vh - 40px);
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 0 70px rgba(0,0,0,0.7);
+    }
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <section class="hero">
-        <div class="small-title">MY PERSONAL ARCHIVE</div>
-        <h1>CALEB</h1>
-        <div class="subtitle">LOVE & DEEPSPACE</div>
-    </section>
 
-    <main class="content">
+<div class="phone">
 
-        <h2 class="section-title">MY COLLECTION</h2>
 
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-number">0</span>
-                <span class="stat-label">MEMORIES</span>
-            </div>
+    <!-- PROFILE -->
 
-            <div class="stat">
-                <span class="stat-number">0</span>
-                <span class="stat-label">DATES</span>
-            </div>
+    <div class="profile">
+
+        <div class="profile-icon">
+            ✦
         </div>
 
-        <div class="categories">
+        <div class="profile-info">
 
-            <div class="category">
-                <div class="category-icon">✦</div>
-                <div class="category-name">MEMORIES</div>
+            <div class="profile-name">
+                CALEB
             </div>
 
-            <div class="category">
-                <div class="category-icon">♡</div>
-                <div class="category-name">DATES</div>
-            </div>
-
-            <div class="category">
-                <div class="category-icon">◇</div>
-                <div class="category-name">OUTFITS</div>
-            </div>
-
-            <div class="category">
-                <div class="category-icon">▣</div>
-                <div class="category-name">ALBUM</div>
+            <div class="profile-sub">
+                PERSONAL ARCHIVE
             </div>
 
         </div>
 
-    </main>
+    </div>
 
-    <footer>
-        A PERSONAL CALEB ARCHIVE
-    </footer>
+
+    <!-- TOP ICONS -->
+
+    <div class="top-icons">
+
+        <div class="top-icon"
+             onclick="openMessage('Your Caleb archive profile.')">
+            ♙
+        </div>
+
+        <div class="top-icon"
+             onclick="openMessage('Archive settings will be added later.')">
+            ⚙
+        </div>
+
+    </div>
+
+
+    <!-- DECORATION -->
+
+    <div class="decor-left"></div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="side-menu">
+
+
+        <div class="side-button"
+             onclick="openMessage('Messages will be added here.')">
+
+            <div class="side-circle">
+                ✉
+            </div>
+
+            <div class="side-label">
+                MESSAGES
+            </div>
+
+        </div>
+
+
+        <div class="side-button"
+             onclick="openMessage('Your Caleb Dates collection will be here.')">
+
+            <div class="side-circle">
+                ♡
+            </div>
+
+            <div class="side-label">
+                DATE
+            </div>
+
+        </div>
+
+
+        <div class="side-button"
+             onclick="openMessage('Your Memories collection will be here.')">
+
+            <div class="side-circle">
+                ✦
+            </div>
+
+            <div class="side-label">
+                MEMORIES
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- DIALOGUE -->
+
+    <div class="dialogue">
+
+        <div class="dialogue-name">
+            CALEB
+        </div>
+
+        <div class="dialogue-text">
+            Welcome to my archive.
+        </div>
+
+    </div>
+
+
+    <!-- BOTTOM NAV -->
+
+    <div class="bottom-nav">
+
+
+        <a href="#"
+           class="nav-item"
+           onclick="openMessage('Date section coming soon.'); return false;">
+
+            <span class="nav-icon">
+                ♡
+            </span>
+
+            <span class="nav-label">
+                DATE
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item"
+           onclick="openMessage('Memories section coming soon.'); return false;">
+
+            <span class="nav-icon">
+                ✦
+            </span>
+
+            <span class="nav-label">
+                MEMORIES
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item"
+           onclick="openMessage('Story section coming soon.'); return false;">
+
+            <span class="nav-icon">
+                ◇
+            </span>
+
+            <span class="nav-label">
+                STORY
+            </span>
+
+        </a>
+
+
+        <a href="#"
+           class="nav-item"
+           onclick="openMessage('With Him section coming soon.'); return false;">
+
+            <span class="nav-icon">
+                ♢
+            </span>
+
+            <span class="nav-label">
+                WITH HIM
+            </span>
+
+        </a>
+
+
+    </div>
+
+
+    <!-- DECORATION -->
+
+    <div class="decor-right"></div>
+
+
+    <!-- POPUP -->
+
+    <div class="message" id="message">
+
+        <p id="messageText"></p>
+
+        <button onclick="closeMessage()">
+            CLOSE
+        </button>
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+function openMessage(text) {
+
+    document.getElementById("messageText").innerText = text;
+
+    document.getElementById("message").style.display = "block";
+}
+
+function closeMessage() {
+
+    document.getElementById("message").style.display = "none";
+}
+
+</script>
+
 
 </body>
-</html>
+</html>            
