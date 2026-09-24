@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caleb Archive</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    background:#07090c;
+}
+
+body{
+    color:#fff;
+    font-family:Georgia,"Times New Roman",serif;
+    display:flex;
+    justify-content:center;
+}
+
+.phone{
+    position:relative;
+    width:100%;
+    max-width:430px;
+    height:100vh;
+    overflow:hidden;
+
+    background-image:
+        linear-gradient(to bottom,rgba(8,12,15,.12),rgba(8,12,15,.02) 45%,rgba(4,6,9,.58)),
+        url("a7drzoajc1ae1.jpg");
+    background-size:cover;
+    background-position:center center;
+    background-repeat:no-repeat;
+}
+
+/* subtle cinematic overlay */
+.phone:after{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 50% 38%,transparent 35%,rgba(0,0,0,.13) 100%),
+        linear-gradient(to bottom,rgba(255,255,255,.025),transparent 25%);
+}
+
+/* TOP PROFILE */
+.profile{
+    position:absolute;
+    z-index:5;
+    top:19px;
+    left:17px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-shadow:0 2px 7px rgba(0,0,0,.8);
+}
+
+.profile-icon{
+    width:39px;
+    height:39px;
+    border:1px solid rgba(255,255,255,.58);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(18,23,26,.22);
+    backdrop-filter:blur(7px);
+    box-shadow:0 0 18px rgba(255,255,255,.07),inset 0 0 12px rgba(255,255,255,.05);
+}
+
+.profile-name{
+    font-size:13px;
+    letter-spacing:2px;
+}
+
+.profile-sub{
+    margin-top:3px;
+    font-family:Arial,sans-serif;
+    font-size:7px;
+    letter-spacing:1.6px;
+    opacity:.7;
+}
+
+/* TOP RIGHT */
+.top-icons{
+    position:absolute;
+    z-index:5;
+    top:23px;
+    right:17px;
+    display:flex;
+    gap:8px;
+}
+
+.top-icon{
+    width:31px;
+    height:31px;
+    border:1px solid rgba(255,255,255,.36);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(15,20,23,.20);
+    backdrop-filter:blur(7px);
+    box-shadow:0 0 12px rgba(255,255,255,.05);
+    font-family:Arial,sans-serif;
+    font-size:12px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.top-icon:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+
+/* RIGHT FLOATING MENU */
+.side-menu{
+    position:absolute;
+    z-index:5;
+    top:104px;
+    right:14px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.side-button{
+    width:70px;
+    text-align:center;
+    cursor:pointer;
+    color:#fff;
+    opacity:.9;
+    filter:drop-shadow(0 2px 6px rgba(0,0,0,.7));
+    transition:.25s;
+}
+
+.side-button:hover{transform:translateX(-4px);opacity:1}
+
+.side-circle{
+    position:relative;
+    width:47px;
+    height:47px;
+    margin:auto;
+    border:1px solid rgba(255,255,255,.50);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.17),rgba(15,20,23,.13) 60%,rgba(0,0,0,.2));
+    backdrop-filter:blur(5px);
+    box-shadow:0 0 16px rgba(255,255,255,.07),inset 0 0 12px rgba(255,255,255,.05);
+    font-family:Arial,sans-serif;
+    font-size:17px;
+}
+
+.side-circle:before{
+    content:"";
+    position:absolute;
+    inset:-5px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    transform:rotate(45deg);
+}
+
+.side-label{
+    margin-top:8px;
+    font-family:Arial,sans-serif;
+    font-size:7px;
+    letter-spacing:1.7px;
+    opacity:.82;
+}
+
+/* DIALOGUE */
+.dialogue{
+    position:absolute;
+    z-index:4;
+    left:18px;
+    right:91px;
+    bottom:125px;
+    padding:12px 15px;
+    border-left:2px solid rgba(255,255,255,.60);
+    background:linear-gradient(90deg,rgba(10,14,17,.68),rgba(10,14,17,.28));
+    backdrop-filter:blur(5px);
+    text-shadow:0 2px 7px rgba(0,0,0,.85);
+}
+
+.dialogue-name{
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:2px;
+    opacity:.64;
+    margin-bottom:5px;
+}
+
+.dialogue-text{
+    font-size:14px;
+    line-height:1.45;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+    position:absolute;
+    z-index:10;
+    left:17px;
+    right:17px;
+    bottom:17px;
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+
+    background:rgba(8,12,15,.30);
+    border-top:1px solid rgba(255,255,255,.24);
+    border-bottom:1px solid rgba(255,255,255,.10);
+    backdrop-filter:blur(11px);
+    box-shadow:0 -8px 28px rgba(0,0,0,.20);
+}
+
+.nav-item{
+    position:relative;
+    width:25%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    color:rgba(255,255,255,.72);
+    text-decoration:none;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.nav-item:hover{color:#fff;transform:translateY(-2px)}
+
+.nav-item:not(:last-child):before{
+    content:"";
+    position:absolute;
+    right:0;
+    height:22px;
+    width:1px;
+    background:rgba(255,255,255,.09);
+}
+
+.nav-icon{
+    position:relative;
+    width:31px;
+    height:31px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(255,255,255,.29);
+    border-radius:50%;
+    background:rgba(255,255,255,.035);
+    box-shadow:inset 0 0 8px rgba(255,255,255,.04),0 0 11px rgba(255,255,255,.04);
+    font-family:Arial,sans-serif;
+    font-size:16px;
+}
+
+.nav-icon:after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
+    border:1px solid rgba(255,255,255,.34);
+    transform:rotate(45deg);
+    top:-4px;
+    right:-4px;
+}
+
+.nav-label{
+    font-family:Arial,sans-serif;
+    font-size:7px;
+    letter-spacing:1.7px;
+    opacity:.78;
+}
+
+/* POPUP */
+.message{
+    position:absolute;
+    z-index:50;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:76%;
+    padding:23px 20px;
+    text-align:center;
+    background:rgba(12,16,19,.88);
+    border:1px solid rgba(255,255,255,.30);
+    backdrop-filter:blur(13px);
+    box-shadow:0 12px 45px rgba(0,0,0,.5);
+    display:none;
+}
+
+.message p{
+    font-family:Arial,sans-serif;
+    font-size:12px;
+    line-height:1.55;
+    opacity:.9;
+}
+
+.message button{
+    margin-top:15px;
+    padding:7px 20px;
+    color:#fff;
+    background:transparent;
+    border:1px solid rgba(255,255,255,.38);
+    font-family:Arial,sans-serif;
+    font-size:9px;
+    letter-spacing:1.5px;
+    cursor:pointer;
+}
+
+@media(min-width:600px){
+    body{padding:20px 0}
+    .phone{
+        height:calc(100vh - 40px);
+        border-radius:22px;
+        box-shadow:0 0 70px rgba(0,0,0,.7);
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="phone">
+
+    <div class="profile">
+        <div class="profile-icon">✦</div>
+        <div>
+            <div class="profile-name">CALEB</div>
+            <div class="profile-sub">PERSONAL ARCHIVE</div>
+        </div>
+    </div>
+
+    <div class="top-icons">
+        <div class="top-icon" onclick="openMessage('Your Caleb archive profile.')">♙</div>
+        <div class="top-icon" onclick="openMessage('Archive settings will be added later.')">⚙</div>
+    </div>
+
+    <div class="side-menu">
+
+        <div class="side-button" onclick="openMessage('Messages will be added here.')">
+            <div class="side-circle">✉</div>
+            <div class="side-label">MESSAGES</div>
+        </div>
+
+        <div class="side-button" onclick="openMessage('Your Caleb Dates collection will be here.')">
+            <div class="side-circle">♡</div>
+            <div class="side-label">DATE</div>
+        </div>
+
+        <a href="memories.html" class="side-button">
+            <div class="side-circle">✦</div>
+            <div class="side-label">MEMORIES</div>
+        </a>
+
+    </div>
+
+    <div class="dialogue">
+        <div class="dialogue-name">CALEB</div>
+        <div class="dialogue-text">Welcome to my archive.</div>
+    </div>
+
+    <div class="bottom-nav">
+
+        <a href="#" class="nav-item" onclick="openMessage('Date section coming soon.');return false;">
+            <span class="nav-icon">♡</span>
+            <span class="nav-label">DATE</span>
+        </a>
+
+        <a href="memories.html" class="nav-item">
+            <span class="nav-icon">✦</span>
+            <span class="nav-label">MEMORIES</span>
+        </a>
+
+        <a href="#" class="nav-item" onclick="openMessage('Story section coming soon.');return false;">
+            <span class="nav-icon">◇</span>
+            <span class="nav-label">STORY</span>
+        </a>
+
+        <a href="#" class="nav-item" onclick="openMessage('With Him section coming soon.');return false;">
+            <span class="nav-icon">♢</span>
+            <span class="nav-label">WITH HIM</span>
+        </a>
+
+    </div>
+
+    <div class="message" id="message">
+        <p id="messageText"></p>
+        <button onclick="closeMessage()">CLOSE</button>
+    </div>
+
+</div>
+
+<script>
+function openMessage(text){
+    document.getElementById("messageText").innerText=text;
+    document.getElementById("message").style.display="block";
+}
+
+function closeMessage(){
+    document.getElementById("message").style.display="none";
+}
+</script>
+
+</body>
+</html>
