@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caleb Archive — Memories</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+    --ink:#10151a;
+    --glass:rgba(247,248,247,.72);
+    --line:rgba(30,38,43,.20);
+    --muted:#667077;
+    --accent:#8b9699;
+}
+
+html,body{
+    min-height:100%;
+    background:#dfe2df;
+}
+
+body{
+    color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif;
+}
+
+.archive{
+    width:100%;
+    max-width:430px;
+    min-height:100vh;
+    margin:auto;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 15% 8%,rgba(255,255,255,.95),transparent 32%),
+        linear-gradient(145deg,#eef0ed,#cfd5d3 58%,#e5e7e3);
+}
+
+/* fine paper/glass texture */
+.archive:before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.18;
+    background-image:
+        radial-gradient(rgba(0,0,0,.18) .45px,transparent .55px);
+    background-size:6px 6px;
+}
+
+/* HEADER */
+.header{
+    position:relative;
+    z-index:2;
+    padding:22px 20px 8px;
+}
+
+.topline{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.back{
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    color:var(--ink);
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.38);
+    backdrop-filter:blur(10px);
+    clip-path:polygon(12% 0,88% 0,100% 12%,100% 88%,88% 100%,12% 100%,0 88%,0 12%);
+    font-family:Arial,sans-serif;
+    font-size:17px;
+    transition:.25s;
+}
+
+.back:hover{
+    transform:translateX(-3px);
+    background:rgba(255,255,255,.7);
+}
+
+.header-meta{
+    text-align:right;
+    font-family:Arial,sans-serif;
+    font-size:7px;
+    letter-spacing:2px;
+    color:#687277;
+}
+
+.title{
+    margin-top:26px;
+    font-size:38px;
+    font-weight:normal;
+    letter-spacing:7px;
+}
+
+.subtitle{
+    margin-top:7px;
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:3px;
+    color:#687277;
+}
+
+/* DECORATIVE LINE */
+.rule{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:20px;
+}
+
+.rule span:first-child{
+    width:42px;
+    height:1px;
+    background:#657075;
+}
+
+.rule span:last-child{
+    flex:1;
+    height:1px;
+    background:rgba(55,65,70,.17);
+}
+
+/* TABS */
+.tabs{
+    position:relative;
+    z-index:2;
+    display:flex;
+    gap:8px;
+    padding:15px 20px 10px;
+}
+
+.tab{
+    flex:1;
+    height:37px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.34);
+    color:#596268;
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:1.8px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.tab:hover{
+    background:rgba(255,255,255,.65);
+}
+
+.tab.active{
+    color:#fff;
+    background:#465258;
+    border-color:#465258;
+    box-shadow:0 7px 18px rgba(30,40,45,.17);
+}
+
+/* COLLECTION INFO */
+.collection{
+    position:relative;
+    z-index:2;
+    padding:10px 20px 0;
+}
+
+.collection-top{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+}
+
+.collection-name{
+    font-size:16px;
+    letter-spacing:2px;
+}
+
+.collection-count{
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:1.5px;
+    color:#69747a;
+}
+
+/* MEMORY GRID */
+.grid{
+    position:relative;
+    z-index:2;
+    padding:18px 20px 35px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.memory{
+    position:relative;
+    aspect-ratio:0.70;
+    overflow:hidden;
+    background:linear-gradient(145deg,#b9c0c0,#727d81);
+    border:1px solid rgba(25,33,37,.22);
+    box-shadow:0 8px 20px rgba(25,35,40,.12);
+    cursor:pointer;
+    transition:transform .3s,box-shadow .3s;
+}
+
+.memory:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 28px rgba(25,35,40,.22);
+}
+
+/* Placeholder artwork until real cards are uploaded */
+.memory-art{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 50% 30%,rgba(255,255,255,.45),transparent 35%),
+        linear-gradient(150deg,#b8c0c0,#778287);
+}
+
+.memory-art:before{
+    content:"";
+    position:absolute;
+    width:115px;
+    height:160px;
+    border:1px solid rgba(255,255,255,.42);
+    transform:rotate(17deg);
+    box-shadow:0 0 30px rgba(255,255,255,.15);
+}
+
+.memory-art:after{
+    content:"✦";
+    position:absolute;
+    font-size:32px;
+    color:rgba(255,255,255,.45);
+}
+
+/* overlay */
+.memory-overlay{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:12px;
+    background:linear-gradient(transparent 48%,rgba(5,10,12,.78));
+}
+
+.rarity{
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:2px;
+    margin-bottom:4px;
+    color:rgba(255,255,255,.82);
+}
+
+.memory-name{
+    font-size:13px;
+    letter-spacing:1px;
+    color:#fff;
+    line-height:1.25;
+}
+
+/* little corner geometry */
+.corner{
+    position:absolute;
+    top:8px;
+    right:8px;
+    width:17px;
+    height:17px;
+    border-top:1px solid rgba(255,255,255,.7);
+    border-right:1px solid rgba(255,255,255,.7);
+}
+
+/* empty state */
+.empty{
+    grid-column:1/-1;
+    min-height:180px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    border:1px solid rgba(40,50,55,.18);
+    background:rgba(255,255,255,.25);
+    padding:25px;
+}
+
+.empty-symbol{
+    font-size:27px;
+    opacity:.45;
+    margin-bottom:12px;
+}
+
+.empty-title{
+    font-size:14px;
+    letter-spacing:2px;
+}
+
+.empty-text{
+    margin-top:8px;
+    max-width:260px;
+    font-family:Arial,sans-serif;
+    font-size:9px;
+    line-height:1.6;
+    letter-spacing:.5px;
+    color:#667178;
+}
+
+/* DETAILS POPUP */
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:20;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:25px;
+    background:rgba(15,20,22,.55);
+    backdrop-filter:blur(9px);
+}
+
+.modal-box{
+    width:100%;
+    max-width:390px;
+    padding:25px;
+    background:rgba(239,241,239,.94);
+    border:1px solid rgba(255,255,255,.75);
+    box-shadow:0 25px 60px rgba(0,0,0,.25);
+}
+
+.modal-rarity{
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:2px;
+    color:#68747a;
+}
+
+.modal h2{
+    margin-top:8px;
+    font-weight:normal;
+    letter-spacing:2px;
+}
+
+.modal p{
+    margin-top:10px;
+    font-family:Arial,sans-serif;
+    font-size:10px;
+    line-height:1.6;
+    color:#626d72;
+}
+
+.close{
+    margin-top:20px;
+    padding:9px 22px;
+    border:1px solid rgba(30,40,45,.28);
+    background:transparent;
+    font-family:Arial,sans-serif;
+    font-size:8px;
+    letter-spacing:1.8px;
+    cursor:pointer;
+}
+
+@media(min-width:600px){
+    .archive{
+        min-height:calc(100vh - 40px);
+        margin:20px auto;
+        border-radius:20px;
+        box-shadow:0 15px 60px rgba(20,30,35,.25);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="archive">
+
+<header class="header">
+    <div class="topline">
+        <a class="back" href="index.html">‹</a>
+        <div class="header-meta">CALEB ARCHIVE<br>MEMORY DATABASE</div>
+    </div>
+
+    <h1 class="title">MEMORIES</h1>
+    <div class="subtitle">A RECORD OF EVERY MOMENT</div>
+
+    <div class="rule">
+        <span></span><span></span>
+    </div>
+</header>
+
+<nav class="tabs">
+    <button class="tab active" onclick="selectTab(this,'5★')">5★</button>
+    <button class="tab" onclick="selectTab(this,'4★')">4★</button>
+    <button class="tab" onclick="selectTab(this,'3★')">3★</button>
+</nav>
+
+<section class="collection">
+    <div class="collection-top">
+        <div class="collection-name" id="collectionName">5★ MEMORIES</div>
+        <div class="collection-count" id="collectionCount">0 COLLECTED</div>
+    </div>
+</section>
+
+<section class="grid" id="grid">
+
+    <article class="memory" onclick="openMemory('5★ MEMORY','Memory slot 01')">
+        <div class="memory-art"></div>
+        <div class="corner"></div>
+        <div class="memory-overlay">
+            <div class="rarity">5★ · ARCHIVE SLOT 01</div>
+            <div class="memory-name">EMPTY MEMORY</div>
+        </div>
+    </article>
+
+    <article class="memory" onclick="openMemory('5★ MEMORY','Memory slot 02')">
+        <div class="memory-art"></div>
+        <div class="corner"></div>
+        <div class="memory-overlay">
+            <div class="rarity">5★ · ARCHIVE SLOT 02</div>
+            <div class="memory-name">EMPTY MEMORY</div>
+        </div>
+    </article>
+
+    <article class="memory" onclick="openMemory('5★ MEMORY','Memory slot 03')">
+        <div class="memory-art"></div>
+        <div class="corner"></div>
+        <div class="memory-overlay">
+            <div class="rarity">5★ · ARCHIVE SLOT 03</div>
+            <div class="memory-name">EMPTY MEMORY</div>
+        </div>
+    </article>
+
+    <article class="memory" onclick="openMemory('5★ MEMORY','Memory slot 04')">
+        <div class="memory-art"></div>
+        <div class="corner"></div>
+        <div class="memory-overlay">
+            <div class="rarity">5★ · ARCHIVE SLOT 04</div>
+            <div class="memory-name">EMPTY MEMORY</div>
+        </div>
+    </article>
+
+</section>
+
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <div class="modal-rarity" id="modalRarity"></div>
+        <h2 id="modalTitle"></h2>
+        <p id="modalText"></p>
+        <button class="close" onclick="closeMemory()">CLOSE</button>
+    </div>
+</div>
+
+</main>
+
+<script>
+function selectTab(button, rarity){
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    button.classList.add("active");
+    document.getElementById("collectionName").innerText=rarity+" MEMORIES";
+    document.getElementById("collectionCount").innerText="0 COLLECTED";
+}
+
+function openMemory(rarity,title){
+    document.getElementById("modalRarity").innerText=rarity;
+    document.getElementById("modalTitle").innerText=title;
+    document.getElementById("modalText").innerText="This archive slot is ready for your memory artwork, details, and—when it is a 5★ memory—its dedicated mini interface video.";
+    document.getElementById("modal").style.display="flex";
+}
+
+function closeMemory(){
+    document.getElementById("modal").style.display="none";
+}
+</script>
+
+</body>
+</html>
